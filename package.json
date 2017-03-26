@@ -1,0 +1,18 @@
+{
+  "name": "nextjs-hello-world",
+  "version": "0.1.0-SNAPSHOT",
+  "description": "next.js hello world web application",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start -p $PORT",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "hoatle <hoatle at teracy dot com>",
+  "private": true,
+  "dependencies": {
+    "next": "^1.2.3",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2"
+  }
+}

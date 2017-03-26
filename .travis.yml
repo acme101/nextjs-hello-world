@@ -1,0 +1,41 @@
+sudo: required
+services:
+  - docker
+env:
+  global:
+    DOCKER_COMPOSE_VERSION: 1.11.2
+    CI_BUILD_TIME: $(date -u +"%Y-%m-%dT%H:%M:%SZ")
+    CI_BUILD_ID: $TRAVIS_BUILD_ID
+    CI_BUILD_REF: $TRAVIS_COMMIT
+    CI_BUILD_REF_NAME: $TRAVIS_BRANCH
+    CI_BUILD_NUMBER: $TRAVIS_BUILD_NUMBER
+    CI_BUILDER: travis-ci
+    CI_PROJECT_NAME: $TRAVIS_REPO_SLUG
+before_install:
+  # install the latest docker and docker-compose versions
+  - sudo apt-get remove docker docker-engine
+  - sudo curl -sSL https://get.docker.com/ | sh
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+  - docker --version
+  - docker-compose --version
+before_script:
+- export CI_REGISTRY_IMAGE=$DOCKER_USER/$DOCKER_REPO
+- export IMG_TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH | sed -e 's/[\/]/-/g' | sed -e 's/[\#]//g'; fi`
+- export DOCKER_IMAGE_PROD=$CI_REGISTRY_IMAGE:$IMG_TAG
+script:
+- docker-compose up -d
+# run and check the dev container
+# - docker-compose run --rm dev npm run lint
+# - docker-compose run --rm dev ng test --browsers Chrome_no_sandbox -w false
+# - docker-compose run --rm dev npm run e2e
+
+# build, run and check the prod image
+- docker-compose -f docker-compose.yml -f docker-compose.prod.yml build --pull
+- docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+# run and check the prod container
+after_success:
+- docker login -u=$DOCKER_USERNAME -p=$DOCKER_PASSWORD
+- docker push $DOCKER_IMAGE_PROD
