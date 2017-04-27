@@ -43,5 +43,5 @@ spec:
         ports:
         - containerPort: 8080
           name: $APP_NAME
-      imagePullSecrets:
-      - name: registry.gitlab.com
+      # imagePullSecrets:
+      # - name: registry.gitlab.com

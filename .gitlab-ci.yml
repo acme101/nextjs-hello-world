@@ -109,7 +109,7 @@ deploy-staging-heroku:
   allow_failure: true # for downstream failure
   when: on_success
 
-deploy-staging-heroku:
+deploy-prod-heroku:
   stage: deploy
   before_script:
     # convert / to -, remove # character from docker tag name to make it a valid name
