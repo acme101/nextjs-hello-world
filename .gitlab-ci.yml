@@ -48,11 +48,15 @@ deploy-staging-gcp:
     - export DOCKER_IMAGE_PROD=$CI_REGISTRY_IMAGE:$IMG_TAG
     - export GCP_IMAGE=$DOCKER_IMAGE_PROD
     - export GCP_PROJECT_ID=$GCP_PROJECT_ID_STAGING
+    - export GCP_ZONE=$GCP_ZONE_STAGING
+    - export GCP_CLUSTER_NAME=$GCP_CLUSTER_NAME_STAGING
+    - export APP_NAME=$GCP_APP_NAME_STAGING
     #- docker login -u "gitlab-ci-token" -p "$CI_BUILD_TOKEN" $CI_REGISTRY
     - echo $GCP_KEY_FILE_STAGING > /tmp/gcp_key_file.json
     - export DEPLOYED_TIME=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
   script:
     - envsubst <k8s/deployment_staging.tpl.yaml >k8s/deployment.yaml
+    #- cat k8s/deployment.yaml
     - sh scripts/deploy_gcp.sh
   after_script:
     - rm /tmp/gcp_key_file.json
@@ -75,9 +79,12 @@ deploy-prod-gcp:
     - export IMG_TAG=`if [ "$CI_BUILD_REF_NAME" == "master" ]; then echo "latest"; else echo $CI_BUILD_REF_NAME | sed -e 's/[\/]/-/g' | sed -e 's/[\#]//g'; fi`
     - export DOCKER_IMAGE_PROD=$CI_REGISTRY_IMAGE:$IMG_TAG
     - export GCP_IMAGE=$DOCKER_IMAGE_PROD
-    - export GCP_PROJECT_ID=$GCP_PROJECT_ID_STAGING
+    - export GCP_PROJECT_ID=$GCP_PROJECT_ID_PROD
+    - export GCP_ZONE=$GCP_ZONE_PROD
+    - export GCP_CLUSTER_NAME=$GCP_CLUSTER_NAME_PROD
+    - export APP_NAME=$GCP_APP_NAME_PROD
     #- docker login -u "gitlab-ci-token" -p "$CI_BUILD_TOKEN" $CI_REGISTRY
-    - echo $GCP_KEY_FILE_STAGING > /tmp/gcp_key_file.json
+    - echo $GCP_KEY_FILE_PROD > /tmp/gcp_key_file.json
     - export DEPLOYED_TIME=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
   script:
     - envsubst <k8s/deployment_prod.tpl.yaml >k8s/deployment.yaml

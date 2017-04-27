@@ -20,7 +20,6 @@ metadata:
   name: $APP_NAME
   labels:
     app: $APP_NAME
-    version: $APP_VERSION
 spec:
   replicas: 2
   template:
