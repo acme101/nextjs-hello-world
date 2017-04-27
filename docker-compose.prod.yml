@@ -3,7 +3,6 @@ version: '3'
 services:
 
   prod:
-    container_name: nextjs-hello-world_prod
     build:
       context: .
       dockerfile: Dockerfile
@@ -16,14 +15,16 @@ services:
         CI_PROJECT_NAME: ${CI_PROJECT_NAME}
         CI_BUILD_NUMBER: ${CI_BUILD_NUMBER}
         CI_BUILDER: ${CI_BUILDER}
+        NODE_ENV: production
     image: ${DOCKER_IMAGE_PROD:-acme101/nextjs-hello-world:develop}
     environment:
       VIRTUAL_HOST: nextjs.acme.dev
       HTTPS_METHOD: noredirect # support both http and https
-      PORT: 3000
+      PORT: 8080
+    env_file:
+      - .env.dev # can use .env.prod if required
     ports:
-      - "3000"
-    restart: unless-stopped
+      - 8080
     # to get this work with https://github.com/jwilder/nginx-proxy
     # related: https://github.com/jwilder/nginx-proxy/issues/305
     network_mode: bridge

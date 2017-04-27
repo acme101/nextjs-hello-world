@@ -2,15 +2,16 @@ version: '3'
 
 services:
 
-  prod:
-    container_name: dropseeker_web_review
+  review:
     image: ${DOCKER_IMAGE_REVIEW}
     environment:
-      VIRTUAL_HOST: review.nextjs.acme.dev
+      VIRTUAL_HOST: review.nexjs.acme.dev
       HTTPS_METHOD: noredirect # support both http and https
-      PORT: 3000
+      PORT: 8080
+    env_file:
+      - .env.dev # can use .env.review if required
     ports:
-      - "3000"
+      - 8080
     # to get this work with https://github.com/jwilder/nginx-proxy
     # related: https://github.com/jwilder/nginx-proxy/issues/305
     network_mode: bridge

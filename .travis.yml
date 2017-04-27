@@ -3,7 +3,6 @@ services:
   - docker
 env:
   global:
-    DOCKER_COMPOSE_VERSION: 1.11.2
     CI_BUILD_TIME: $(date -u +"%Y-%m-%dT%H:%M:%SZ")
     CI_BUILD_ID: $TRAVIS_BUILD_ID
     CI_BUILD_REF: $TRAVIS_COMMIT
@@ -16,6 +15,8 @@ before_install:
   - sudo apt-get remove docker docker-engine
   - sudo curl -sSL https://get.docker.com/ | sh
   - sudo rm /usr/local/bin/docker-compose
+  # the latest docker-compose version
+  - export DOCKER_COMPOSE_VERSION=$(curl -s https://api.github.com/repos/docker/compose/releases/latest | grep 'tag_name' | cut -d\" -f4)
   - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
@@ -26,16 +27,12 @@ before_script:
 - export IMG_TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH | sed -e 's/[\/]/-/g' | sed -e 's/[\#]//g'; fi`
 - export DOCKER_IMAGE_PROD=$CI_REGISTRY_IMAGE:$IMG_TAG
 script:
-- docker-compose up -d
+- docker-compose run --rm dev yarn
 # run and check the dev container
-# - docker-compose run --rm dev npm run lint
-# - docker-compose run --rm dev ng test --browsers Chrome_no_sandbox -w false
-# - docker-compose run --rm dev npm run e2e
-
 # build, run and check the prod image
-- docker-compose -f docker-compose.yml -f docker-compose.prod.yml build --pull
-- docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
-# run and check the prod container
+- docker-compose run --rm dev yarn run build
+- docker-compose -f docker-compose.yml -f docker-compose.prod.yml build prod
+
 after_success:
 - docker login -u=$DOCKER_USERNAME -p=$DOCKER_PASSWORD
 - docker push $DOCKER_IMAGE_PROD

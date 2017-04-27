@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: $APP_NAME
+  labels:
+    app: $APP_NAME
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    app: $APP_NAME
+    tier: frontend
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: $APP_NAME
+  labels:
+    app: $APP_NAME
+    version: $APP_VERSION
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: $APP_NAME
+        tier: frontend
+    spec:
+      containers:
+      - image: $GCP_IMAGE
+        name: $APP_NAME
+        imagePullPolicy: Always
+        env:
+        - name: PORT
+          value: "8080"
+        # for rolling updates without downtime
+        # see: https://github.com/kubernetes/kubernetes/issues/33664#issuecomment-292895327
+        - name: DEPLOYED_AT
+          value: $DEPLOYED_TIME
+        ports:
+        - containerPort: 8080
+          name: $APP_NAME
+      imagePullSecrets:
+      - name: registry.gitlab.com

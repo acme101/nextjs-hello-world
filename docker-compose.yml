@@ -3,18 +3,22 @@ version: '3'
 services:
 
   dev:
-    container_name: nextjs-hello-world_dev
     image: ${DOCKER_IMAGE_DEV:-node:6.10-alpine}
-    environment:
-      VIRTUAL_HOST: dev.nextjs.acme.dev
-      HTTPS_METHOD: noredirect # support both http and https
-      SHELL: "bin/bash" # fix for https://github.com/IanMitchell/is-windows-bash/blob/master/index.js#L9
     working_dir: /opt/app
     command: sh run-dev.sh
+    environment:
+      NODE_ENV: development
+      npm_config_tmp: /tmp
+      PORT: ${DEV_PORT}
+      VIRTUAL_HOST: dev.nextjs.acme.dev
+      VIRTUAL_PORT: ${DEV_PORT}
+      HTTPS_METHOD: noredirect # support both http and https
+    env_file:
+      - .env.dev
+    ports:
+      - "${DEV_PORT}"
     volumes:
       - .:/opt/app
-    ports:
-      - "3000"
     restart: unless-stopped
     # to get this work with https://github.com/jwilder/nginx-proxy
     # related: https://github.com/jwilder/nginx-proxy/issues/305

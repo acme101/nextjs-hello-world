@@ -38,13 +38,13 @@ nosetests.xml
 # SQLite databases
 *.sqlite
 
-.env
 .DS_Store
 
 dist
 
-.next
+.next/*
 
 node_modules/*
 
-!.gitkeep
+!.next/.gitkeep
+!.node_modules/.gitkeep
