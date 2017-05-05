@@ -1,0 +1,20 @@
+# Default values for nextjs-hello-world.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+replicaCount: 2
+image:
+  repository: acme101/nextjs-hello-world
+  tag: latest
+  pullPolicy: IfNotPresent
+service:
+  name: nextjs-hello-world
+  type: ClusterIP
+  externalPort: 80
+  internalPort: 8080
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
