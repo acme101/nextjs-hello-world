@@ -1,6 +1,10 @@
 sudo: required
 services:
   - docker
+# Cache our Gcloud SDK between commands
+cache:
+  directories:
+  - "$HOME/google-cloud-sdk/"
 env:
   global:
     CI_BUILD_TIME: $(date -u +"%Y-%m-%dT%H:%M:%SZ")
@@ -10,6 +14,7 @@ env:
     CI_BUILD_NUMBER: $TRAVIS_BUILD_NUMBER
     CI_BUILDER: travis-ci
     CI_PROJECT_NAME: $TRAVIS_REPO_SLUG
+
 before_install:
   # install the latest docker and docker-compose versions
   - sudo apt-get remove docker docker-engine
@@ -22,6 +27,18 @@ before_install:
   - sudo mv docker-compose /usr/local/bin
   - docker --version
   - docker-compose --version
+  # install google-cloud-sdk
+  # Make sure gcloud command is on our PATH
+  - export PATH=$PATH:${HOME}/google-cloud-sdk/bin
+  - export CLOUDSDK_CORE_DISABLE_PROMPTS=1
+  # If the SDK is not already cached, download it and unpack it
+  - if [ ! -d ${HOME}/google-cloud-sdk ]; then
+       curl https://sdk.cloud.google.com | bash;
+    fi
+  - gcloud version
+  # install helm
+  - curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash
+  - helm version
 before_script:
 - export CI_REGISTRY_IMAGE=$DOCKER_USER/$DOCKER_REPO
 - export IMG_TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH | sed -e 's/[\/]/-/g' | sed -e 's/[\#]//g'; fi`
