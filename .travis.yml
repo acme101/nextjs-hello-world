@@ -55,31 +55,29 @@ after_success:
 - docker login -u=$DOCKER_USERNAME -p=$DOCKER_PASSWORD
 - docker push $DOCKER_IMAGE_PROD
 - if [[ "$TRAVIS_BRANCH" == "develop" ]]; then
-    export GCP_ACCOUNT=$GCP_ACCOUNT_STAGING;
     export GCP_PROJECT_ID=$GCP_PROJECT_ID_STAGING;
     export GCP_ZONE=$GCP_ZONE_STAGING;
     export GCP_CLUSTER_NAME=$GCP_CLUSTER_NAME_STAGING;
+    echo $GCP_KEY_FILE_STAGING | base64 --decode > /tmp/gcp_key_file.json;
     export HELM_RELEASE_NAME=$HELM_RELEASE_NAME_STAGING;
     export HELM_IMAGE_REPOSITORY=$CI_REGISTRY_IMAGE;
     export HELM_IMAGE_TAG=$IMG_TAG;
     export HELM_IMAGE_PULL_POLICY=Always;
     export HELM_IMAGE_LAST_DEPLOYED=$(date -u +"%Y-%m-%dT%H:%M:%SZ");
-    echo $GCP_KEY_FILE_STAGING | base64 --decode > /tmp/gcp_key_file.json;
     export DOCKER_IMAGE=$DOCKER_IMAGE_PROD;
     export HEROKU_IMAGE=$HEROKU_REGISTRY/$HEROKU_APP_NAME_STAGING/web;
     export HEROKU_API_KEY=$HEROKU_API_KEY_STAGING;
   fi
 - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
-    export GCP_ACCOUNT=$GCP_ACCOUNT_PROD;
     export GCP_PROJECT_ID=$GCP_PROJECT_ID_PROD;
     export GCP_ZONE=$GCP_ZONE_PROD;
     export GCP_CLUSTER_NAME=$GCP_CLUSTER_NAME_PROD;
+    echo $GCP_KEY_FILE_PROD | base64 --decode > /tmp/gcp_key_file.json;
     export HELM_RELEASE_NAME=$HELM_RELEASE_NAME_PROD;
     export HELM_IMAGE_REPOSITORY=$CI_REGISTRY_IMAGE;
     export HELM_IMAGE_TAG=$IMG_TAG;
     export HELM_IMAGE_PULL_POLICY=Always;
     export HELM_IMAGE_LAST_DEPLOYED=$(date -u +"%Y-%m-%dT%H:%M:%SZ");
-    echo $GCP_KEY_FILE_PROD | base64 --decode > /tmp/gcp_key_file.json;
     export DOCKER_IMAGE=$DOCKER_IMAGE_PROD;
     export HEROKU_IMAGE=$HEROKU_REGISTRY/$HEROKU_APP_NAME_PROD/web;
     export HEROKU_API_KEY=$HEROKU_API_KEY_PROD;

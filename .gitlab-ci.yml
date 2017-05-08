@@ -53,7 +53,7 @@ deploy-gcp-staging:
     - export HELM_IMAGE_PULL_POLICY=Always
     - export HELM_IMAGE_LAST_DEPLOYED=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
     #- docker login -u "gitlab-ci-token" -p "$CI_BUILD_TOKEN" $CI_REGISTRY
-    - echo $GCP_KEY_FILE_STAGING > /tmp/gcp_key_file.json
+    - echo $GCP_KEY_FILE_STAGING | base64 --decode > /tmp/gcp_key_file.json
   script:
     - sh scripts/deploy_gcp.sh
   after_script:
@@ -82,7 +82,7 @@ deploy-gcp-prod:
     - export HELM_IMAGE_PULL_POLICY=Always
     - export HELM_IMAGE_LAST_DEPLOYED=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
     #- docker login -u "gitlab-ci-token" -p "$CI_BUILD_TOKEN" $CI_REGISTRY
-    - echo $GCP_KEY_FILE_PROD > /tmp/gcp_key_file.json
+    - echo $GCP_KEY_FILE_PROD | base64 --decode > /tmp/gcp_key_file.json
   script:
     - sh scripts/deploy_gcp.sh
   after_script:
@@ -103,6 +103,7 @@ deploy-heroku-staging:
     - export HEROKU_IMAGE=$HEROKU_REGISTRY/$HEROKU_APP_NAME_STAGING/web
     - docker login -u "gitlab-ci-token" -p "$CI_BUILD_TOKEN" $CI_REGISTRY
   script:
+    - echo "login into Heroku Docker registry"
     - docker login -u "$HEROKU_USER_NAME" -p "$HEROKU_API_KEY_STAGING" $HEROKU_REGISTRY
     - sh scripts/deploy_heroku.sh
   environment: staging
