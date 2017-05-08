@@ -20,8 +20,8 @@ spec:
           value: {{ .Values.service.internalPort | quote}} 
         # for rolling updates without downtime
         # see: https://github.com/kubernetes/kubernetes/issues/33664#issuecomment-292895327
-        - name: DEPLOYED_AT
-          value: {{ .Values.image.deployedAt | quote }} 
+        - name: LAST_DEPLOYED
+          value: {{ .Values.image.lastDeployed | quote }} 
         ports:
         - containerPort: {{ .Values.service.internalPort }}
         livenessProbe:
