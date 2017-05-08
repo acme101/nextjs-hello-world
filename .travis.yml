@@ -10,6 +10,8 @@ env:
     CI_BUILD_NUMBER: $TRAVIS_BUILD_NUMBER
     CI_BUILDER: travis-ci
     CI_PROJECT_NAME: $TRAVIS_REPO_SLUG
+    HEROKU_USER_NAME: _
+    HEROKU_REGISTRY: registry.heroku.com
 
 before_install:
   # install the latest docker and docker-compose versions
@@ -63,6 +65,9 @@ after_success:
     export HELM_IMAGE_PULL_POLICY=Always;
     export HELM_IMAGE_LAST_DEPLOYED=$(date -u +"%Y-%m-%dT%H:%M:%SZ");
     echo $GCP_KEY_FILE_STAGING | base64 --decode > /tmp/gcp_key_file.json;
+    export DOCKER_IMAGE=$DOCKER_IMAGE_PROD;
+    export HEROKU_IMAGE=$HEROKU_REGISTRY/$HEROKU_APP_NAME_STAGING/web;
+    export HEROKU_API_KEY=$HEROKU_API_KEY_STAGING;
   fi
 - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
     export GCP_ACCOUNT=$GCP_ACCOUNT_PROD;
@@ -75,8 +80,13 @@ after_success:
     export HELM_IMAGE_PULL_POLICY=Always;
     export HELM_IMAGE_LAST_DEPLOYED=$(date -u +"%Y-%m-%dT%H:%M:%SZ");
     echo $GCP_KEY_FILE_PROD | base64 --decode > /tmp/gcp_key_file.json;
+    export DOCKER_IMAGE=$DOCKER_IMAGE_PROD;
+    export HEROKU_IMAGE=$HEROKU_REGISTRY/$HEROKU_APP_NAME_PROD/web;
+    export HEROKU_API_KEY=$HEROKU_API_KEY_PROD;
   fi
 - if [[ "$TRAVIS_BRANCH" == "master" ]] || [[ "$TRAVIS_BRANCH" == "develop" ]]; then
     sh scripts/deploy_gcp.sh;
+    docker login -u "$HEROKU_USER_NAME" -p "$HEROKU_API_KEY" $HEROKU_REGISTRY;
+    sh scripts/deploy_heroku.sh;
   fi
 - rm -rf /tmp/gcp_key_file.json
