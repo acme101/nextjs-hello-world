@@ -2,7 +2,7 @@
 
 set -e
 
-gcloud auth activate-service-account $GCP_ACCOUNT --key-file /tmp/gcp_key_file.json
+gcloud auth activate-service-account --key-file /tmp/gcp_key_file.json
 #ssh-keygen -f ~/.ssh/google_compute_engine -N ""
 
 gcloud docker -a
