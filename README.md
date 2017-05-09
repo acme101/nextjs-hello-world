@@ -3,7 +3,7 @@
 This is the simplest seed code for next.js applications with Docker workflow, CI/CD system.
 
 - CI/CD with gitlab-ci: https://gitlab.com/acme101/nextjs-hello-world/pipelines
-- CI/CI with travis-ci: https://travis-ci.org/acme101/nextjs-hello-world/builds
+- CI/CD with travis-ci: https://travis-ci.org/acme101/nextjs-hello-world/builds
 
 - Auto deployment to Heroku: https://acme-nextjs-staging.herokuapp.com/
 - Auto deployment to GKE with terapp.com domain A record: https://acme-nextjs-staging.terapp.com/
