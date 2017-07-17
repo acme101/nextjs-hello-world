@@ -18,11 +18,12 @@ services:
         NODE_ENV: production
     image: ${DOCKER_IMAGE_PROD:-acme101/nextjs-hello-world:develop}
     environment:
-      VIRTUAL_HOST: nextjs.acme.dev
+      VIRTUAL_HOST: ${VIRTUAL_HOST:-nextjs-hw.acme.dev, ~^nextjs-hw\..*\.xip\.io}
       HTTPS_METHOD: noredirect # support both http and https
       PORT: 8080
     env_file:
-      - .env.dev # can use .env.prod if required
+      - .env-common
+      - .env-prod
     ports:
       - 8080
     # to get this work with https://github.com/jwilder/nginx-proxy

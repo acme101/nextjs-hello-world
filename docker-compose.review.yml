@@ -5,11 +5,12 @@ services:
   review:
     image: ${DOCKER_IMAGE_REVIEW}
     environment:
-      VIRTUAL_HOST: review.nexjs.acme.dev
+      VIRTUAL_HOST: ${VIRTUAL_HOST:-review.nextjs-hw.acme.dev, ~^review\.nextjs-hw\..*\.xip\.io}
       HTTPS_METHOD: noredirect # support both http and https
       PORT: 8080
     env_file:
-      - .env.dev # can use .env.review if required
+      - .env-common
+      - .env-review # can use .env.review if required
     ports:
       - 8080
     # to get this work with https://github.com/jwilder/nginx-proxy

@@ -1,0 +1,52 @@
+{
+  "vm": {
+    "synced_folders":[{
+      "_id": "1",
+      "_ua_rsync__exclude": ["node_modules/", "dist"]
+    }, {
+      "_id": "nextjs-hw-100",
+      "type": "virtual_box",
+      "host": "workspace/nextjs-hello-world/node_modules",
+      "guest": "/home/vagrant/workspace/nextjs-hello-world/node_modules",
+      "mount_options": [
+        "dmode=775",
+        "fmode=755"
+      ]
+    }, {
+      // enable this to sync dist/ back and forth to the host automatically
+      "_id": "nextjs-hw-101",
+      "type": "virtual_box",
+      "host": "workspace/nextjs-hello-world/dist",
+      "guest": "/home/vagrant/workspace/nextjs-hello-world/dist",
+      "mount_options": [
+        "dmode=775",
+        "fmode=755"
+      ]
+    }]
+  },
+
+  "provisioners": [{
+    "_id": "0",
+    "_ua_cookbooks_path": [
+      "workspace/nextjs-hello-world/dev-setup/chef/main-cookbooks"
+    ],
+    "_ua_run_list": [
+      "nextjs-hello-world"
+    ],
+    "json": {
+      "acme": {
+        "nextjs-hello-world": {
+          "project_guest_path": "/home/vagrant/workspace/nextjs-hello-world"
+        }
+      }
+    }
+  }],
+  "plugins": [{
+    "_id": "2",
+    "options": {
+      "_ua_aliases": [
+        "dev.nextjs-hw.acme.dev", "review.nextjs-hw.acme.dev", "nextjs-hw.acme.dev"
+      ]
+    }
+  }]
+}

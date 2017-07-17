@@ -9,14 +9,15 @@ services:
     environment:
       NODE_ENV: development
       npm_config_tmp: /tmp
-      PORT: ${DEV_PORT}
-      VIRTUAL_HOST: dev.nextjs.acme.dev
-      VIRTUAL_PORT: ${DEV_PORT}
+      PORT: 3000
+      VIRTUAL_HOST: ${VIRTUAL_HOST:-dev.nextjs-hw.acme.dev, ~^dev\.nextjs-hw\..*\.xip\.io}
+      VIRTUAL_PORT: 3000
       HTTPS_METHOD: noredirect # support both http and https
     env_file:
-      - .env.dev
+      - .env-common
+      - .env-dev
     ports:
-      - "${DEV_PORT}"
+      - "3000"
     volumes:
       - .:/opt/app
     restart: unless-stopped

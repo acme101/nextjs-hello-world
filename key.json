@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "teracy-hq",
+  "private_key_id": "bf96460d8ae0ce391d9fbd68f9aee4fb074e65c3",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDaotYWEDrbuRqt\ngr1Y5p71we+5VjPRJMrqp7eeGcB4nv31oYfeq33j18zGNug6aOdKELiG4w7wvHu2\nnVPiwELc3qLLwF4Gjz2tLuaD+ymVenj4yrKy5+BjUaFxwljecgvukbm+4oKk/e3l\nuzhgqAMoIOdQkpyfne56MSNGPlegsmyxI/0v8kehU0omkVbX/yP7jrM2ciBF6lYF\nZ50VMCy8uBna/OGQi2XH8iygVpGNwTZ7hasoK9mbvsMwdEYGer+PGudfEE7VlKyU\nqUOZ1OYHEuuC9pAu+H61EF8WwWp6Rlr8bAOz+4uVkBZEoSGdkPyqR6XyShogm+Y/\np3MeDqu1AgMBAAECggEAEo4jUTgLZr5s7zDbVQItl3ngGICiYSuYNRYK1VYmKZaE\nwyX0XAd95apY7LGYP+zLRFPq9Ter+u5kKXlstx/ODOSwOE6ZLEFX4KzMT4MvYkpE\nngjF5b0cJBG3e+oclLRlItgnRXX/1HTgjdC31iwsKGmyd/oZZMqIhMJK1hlQYojZ\n3DXJ8peGqbyICYYmYXOmdLWqbf2GQVz1Z2PSWbR8YnXNsn8k7Jj68+SFH+qYC6pP\nsvHawFCU3mDCcmSydBUFWS5UFoivp2Gcclnm+N0DZsR6HjvyYqgZdkBLbpA9AGp1\nT/vxrYDdPwoLotK/dapBK1ASbRR/az4gUI74UeSygQKBgQDuLi0TZQk70SIhThO3\nl/pbe854YtylORNyMCcWM1HdElYYMl6e08Dam5EfiWaO9VeFZXKHtztuM8E0DQLJ\n8B9x2EUjLg/zypJTBh4RJ9+8FXC/G+N5gjBhpAkXhvihjdattsXixiNl1aN3Gah2\n1bNB73O1btuL/SKs30VDmwZ4ZQKBgQDq/lT8AGrgHzX07NNriNTT5aXxMyMjppq+\ncYCEDOkrWmFDR18L+kmBd7Pxus4i5OSFHnjfCa+m1BP7bpke5MOgRtI1vtHcMMjq\nomlCtA10JhwC2pkufSr5Jk3OkHGhZxNzt+vUFw8pKP1YJ6PH8U2gstqr4Xe80k20\nDUrbDy6pEQKBgCk2fD464VokWc+Bfw/pkDx8M8HI+XztX1wG0PyabLPgFF2jeZPp\n+BjbikT2tXRPJ5HBeAvbvMDY27lx9uWSUx6T2YK42bHJf4A2MsWtLJ2S6CtpW/cO\ne+ipRZl4lVT/AgKU+bC/sChSyzI0kl3dpGLoWBEw2XRjnLhk+cs06+2xAoGBAMhN\nXbcny/GZ6O4KZ/PDQFYV66p6wjsDKeem67qjHqT7duhYD6YwAzO+Cr3DUy3fGQJ3\nBORoZza2kwnALfhtWmpls4xoSI19b+S/5yUaQFV+nmW4WtWLj3OruKqX6KOBLs12\nOiggN6YH8FqR/0LQZjDSAx57Iwrp353XrrSmbklhAoGBAJYZPo0OGm6AeSDSqhfb\ne0o+T+f5e4f8M2KtzooyIyFD1WF/a/dYnp8XF51iNcOPIZBM8gdU01j2lQptmExG\nWxzTUB6Qn6Z+5MDbZKw07Xx/PVQXHDFBPmjA1a0UBqHNIpeBammAXVecvTogu/FM\nEMU8dm8++6XnKSxtjxr1mC7U\n-----END PRIVATE KEY-----\n",
+  "client_email": "gitlab-ci@teracy-hq.iam.gserviceaccount.com",
+  "client_id": "108153436642116704573",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/gitlab-ci%40teracy-hq.iam.gserviceaccount.com"
+}
