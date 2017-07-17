@@ -11,7 +11,7 @@ This is the simplest seed code for next.js applications with Docker workflow, CI
 
 ## Getting started
 
-- Follow: https://github.com/acme101/dev-setup/blob/master/README.md
+- Follow: https://github.com/acme101/dev-setup/blob/v0.1.0/README.md that was tested on teracy-dev v0.5.0-b3
 
 - Check out this repo into the `acme-dev/workspace` directory
 
