@@ -6,7 +6,7 @@
 # Packages
 *.egg
 *.egg-info
-dist
+dist/*
 build
 eggs
 parts
@@ -40,13 +40,11 @@ nosetests.xml
 
 .DS_Store
 
-dist
 
 .next/*
 
 node_modules/*
 
-!.next/.gitkeep
-!.node_modules/.gitkeep
+!.gitkeep
 
 *.tgz
